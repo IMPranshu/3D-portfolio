@@ -32,3 +32,30 @@ camera.position.setZ(30);
 // drawing onto the screen
 renderer.render(scene, camera);
 
+// now we will create an object and put it on the screen
+// there are 3 basic steps when creatign an object:
+// 1. Geometry: {x,y,z} conrdinates that define the object
+// 2. Material: It is like a wrapping paper for the object. Maybe of dofferent colour and texture
+// 3. Mesh: Combining the geometry and the material and then we add it to the scene.
+const geometry = new THREE.OctahedronGeometry(12, 10);
+// Usually materials require a light source. This material requires no light source
+const material = new THREE.MeshBasicMaterial({color: 0xFF6347, wireframe: true});
+const octahedron = new THREE.Mesh(geometry, material);
+
+scene.add(octahedron);
+
+// we have to render the screen everytime we add something tot he screen
+// renderer.render(scene,camera);
+
+// To skip this part we use "Game Loop"
+
+function animate(){
+  requestAnimationFrame(animate);
+  octahedron.rotation.x += 0.005;
+  octahedron.rotation.y += 0.002;
+  octahedron.rotation.x += 0.001;
+
+  renderer.render(scene, camera);
+}
+
+animate()
