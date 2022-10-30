@@ -49,7 +49,7 @@ scene.add(octahedron);
 
 // It will act as if we have added a light bulb to the scene
 const pointLight = new THREE.PointLight(0xFFFFFF)
-pointLight.position.set(50,50,50)
+pointLight.position.set(12,12,12)
 
 // Ambient light as as a flood light in the room which lights up everything
 // const ambientLight = new THREE.AmbientLight(0xFFFFFF)
@@ -59,8 +59,13 @@ scene.add(pointLight)
 // this helps us to see the position of the light in our scene.
 const lightHelper = new THREE.PointLightHelper(pointLight);
 // this helps us to see the axis on the screen
-const gridHelper = new THREE.GridHelper(200,50);
+const gridHelper = new THREE.GridHelper(100,50);
 scene.add(lightHelper, gridHelper)
+
+// this will listen to the dom events on the mouse and update the camera position accordingly
+const controls = new OrbitControls(camera, renderer.domElement);
+
+
 
 // we have to render the screen everytime we add something tot he screen
 // renderer.render(scene,camera);
@@ -72,6 +77,8 @@ function animate(){
   octahedron.rotation.x += 0.005;
   octahedron.rotation.y += 0.002;
   octahedron.rotation.x += 0.001;
+
+  controls.update();
 
   renderer.render(scene, camera);
 }
