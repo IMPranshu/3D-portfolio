@@ -2,6 +2,9 @@ import './style.css'
 
 import * as THREE from 'three';
 
+// This will allow us to move around the scene using our mouse
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+
 // To start with 3D web dev we will always need 3 things:
 // 1. Scene - It acts like a container that holds all of the ojects
 // 2. Camera - In order to see te objects inside the the conatiner/scene we need a camera.
@@ -37,12 +40,27 @@ renderer.render(scene, camera);
 // 1. Geometry: {x,y,z} conrdinates that define the object
 // 2. Material: It is like a wrapping paper for the object. Maybe of dofferent colour and texture
 // 3. Mesh: Combining the geometry and the material and then we add it to the scene.
-const geometry = new THREE.OctahedronGeometry(12, 10);
-// Usually materials require a light source. This material requires no light source
-const material = new THREE.MeshBasicMaterial({color: 0xFF6347, wireframe: true});
+const geometry = new THREE.OctahedronGeometry(12, 0);
+// Usually materials require a light source. "MeshBasic" material requires no light source
+const material = new THREE.MeshStandardMaterial({color: 0xFF6347});
 const octahedron = new THREE.Mesh(geometry, material);
 
 scene.add(octahedron);
+
+// It will act as if we have added a light bulb to the scene
+const pointLight = new THREE.PointLight(0xFFFFFF)
+pointLight.position.set(50,50,50)
+
+// Ambient light as as a flood light in the room which lights up everything
+// const ambientLight = new THREE.AmbientLight(0xFFFFFF)
+
+scene.add(pointLight)
+
+// this helps us to see the position of the light in our scene.
+const lightHelper = new THREE.PointLightHelper(pointLight);
+// this helps us to see the axis on the screen
+const gridHelper = new THREE.GridHelper(200,50);
+scene.add(lightHelper, gridHelper)
 
 // we have to render the screen everytime we add something tot he screen
 // renderer.render(scene,camera);
