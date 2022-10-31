@@ -40,16 +40,16 @@ renderer.render(scene, camera);
 // 1. Geometry: {x,y,z} conrdinates that define the object
 // 2. Material: It is like a wrapping paper for the object. Maybe of dofferent colour and texture
 // 3. Mesh: Combining the geometry and the material and then we add it to the scene.
-const geometry = new THREE.OctahedronGeometry(12, 0);
+const geometry = new THREE.TorusGeometry(10,3,16, 1000);
 // Usually materials require a light source. "MeshBasic" material requires no light source
 const material = new THREE.MeshStandardMaterial({color: 0xFF6347});
-const octahedron = new THREE.Mesh(geometry, material);
+const torus = new THREE.Mesh(geometry, material);
 
-scene.add(octahedron);
+scene.add(torus);
 
 // It will act as if we have added a light bulb to the scene
 const pointLight = new THREE.PointLight(0xFFFFFF)
-pointLight.position.set(12,12,12)
+pointLight.position.set(15,15,15)
 
 // Ambient light as as a flood light in the room which lights up everything
 // const ambientLight = new THREE.AmbientLight(0xFFFFFF)
@@ -107,3 +107,14 @@ Array(200).fill().forEach(addStar);
 
 const spaceTexture = new THREE.TextureLoader().load('space1.jpg');
 scene.background = spaceTexture;
+
+// Texture Mapping - The process of taking 2D pictures and maping them into 3D geometry
+
+// For Texture Mapping get the texture and then get the geometry
+const pkProfileTexture = new THREE.TextureLoader().load('profile.jpeg');
+const pk = new THREE.Mesh(
+  new THREE.BoxGeometry(3,3,3),
+  new THREE.MeshBasicMaterial({ map: pkProfileTexture})
+);
+
+scene.add(pk);
