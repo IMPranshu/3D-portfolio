@@ -49,7 +49,7 @@ scene.add(torus);
 
 // It will act as if we have added a light bulb to the scene
 const pointLight = new THREE.PointLight(0xFFFFFF)
-pointLight.position.set(15,15,15)
+pointLight.position.set(10,10,10)
 
 // Ambient light as as a flood light in the room which lights up everything
 // const ambientLight = new THREE.AmbientLight(0xFFFFFF)
@@ -74,9 +74,9 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 function animate(){
   requestAnimationFrame(animate);
-  octahedron.rotation.x += 0.005;
-  octahedron.rotation.y += 0.002;
-  octahedron.rotation.x += 0.001;
+  torus.rotation.x += 0.005;
+  torus.rotation.y += 0.002;
+  torus.rotation.x += 0.001;
 
   controls.update();
 
@@ -111,6 +111,8 @@ scene.background = spaceTexture;
 // Texture Mapping - The process of taking 2D pictures and maping them into 3D geometry
 
 // For Texture Mapping get the texture and then get the geometry
+
+// Here we have mapped a 2D image to all six sides of the cube
 const pkProfileTexture = new THREE.TextureLoader().load('profile.jpeg');
 const pk = new THREE.Mesh(
   new THREE.BoxGeometry(3,3,3),
@@ -118,3 +120,14 @@ const pk = new THREE.Mesh(
 );
 
 scene.add(pk);
+
+// Moon
+const moonTexture = new THREE.TextureLoader().load('moon.jpg');
+// Here we are going to add multiple maps to create moon object
+const moon = new THREE.Mesh(
+  new THREE.SphereGeometry(3,32,32),
+  new THREE.MeshStandardMaterial({
+    map: moonTexture,
+  })
+);
+scene.add(moon)
