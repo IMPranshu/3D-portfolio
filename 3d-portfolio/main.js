@@ -84,3 +84,26 @@ function animate(){
 }
 
 animate()
+
+// Using this function we are trying to add stars in our scene
+function addStar(){
+  // the same 3 steps to generate the "Star" object.
+  const geometry = new THREE.SphereGeometry(0.25, 24,24);
+  const material = new THREE.MeshStandardMaterial({color: 0xFFFFFF})
+  const star = new THREE.Mesh(geometry, material);
+
+  // TO position these stars we randomly generate the coordiantes and put htese in place
+
+  // this generates random number between -100 to +100
+  const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+
+  star.position.set(x,y,z);
+
+  scene.add(star)
+
+}
+
+Array(200).fill().forEach(addStar);
+
+const spaceTexture = new THREE.TextureLoader().load('space1.jpg');
+scene.background = spaceTexture;
